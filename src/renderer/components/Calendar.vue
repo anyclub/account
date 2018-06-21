@@ -18,14 +18,13 @@
 <script>
 export default {
   name: "calendar",
-  data(){
+  data() {
     return {
-      week:""
-    }
+      week: ""
+    };
   },
-  created(){
-    const now  = new Date()
-
+  created() {
+    const now = new Date();
   }
 };
 </script>
