@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" flex>
     <router-view></router-view>
   </div>
 </template>
@@ -11,5 +11,11 @@
 </script>
 
 <style>
-  /* CSS */
+html,
+body,
+#app {
+  width: 100%;
+  height: 100%;
+  /* overflow: hidden; */
+}
 </style>
