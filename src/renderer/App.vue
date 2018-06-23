@@ -6,7 +6,7 @@
 
 <script>
   export default {
-    name: 'baby-acc'
+    name: 'app'
   }
 </script>
 

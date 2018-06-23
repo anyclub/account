@@ -1,17 +1,17 @@
 <!-- Created by anyc on 2018-06-21. 欢迎页 -->
 <template>
   <div class="wrapper" flex="cross:center main:center">
-    <router-link class="link" to="/calendar">baby专享--装修记账</router-link>
+    <router-link class="link" to="/calendar">专享--装修记账</router-link>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Welcome",
-  created(){
+  name: 'Welcome',
+  created () {
     this.$store.commit('getDate')
   }
-};
+}
 </script>
 
 

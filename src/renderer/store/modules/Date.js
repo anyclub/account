@@ -1,21 +1,21 @@
 const state = {
-  data: ""
-};
+  data: ''
+}
 
 const mutations = {
-  getDate(state) {
-    state.data = new Date();
+  getDate (state) {
+    state.data = new Date()
   }
-};
+}
 
 const actions = {
-  getDate({ commit }) {
-    commit("getDae");
+  getDate ({ commit }) {
+    commit('getDae')
   }
-};
+}
 
 export default {
   state,
   mutations,
   actions
-};
+}
