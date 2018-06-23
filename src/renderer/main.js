@@ -11,6 +11,10 @@ import './assets/style/reset.css'
 import './assets/style/flex.css'
 // import 'flex.css'
 
+import utils from '@/global/utils'
+
+Vue.use(utils)
+
 Vue.use(ElementUI)
 
 if (!process.env.IS_WEB) Vue.use(require('vue-electron'))
