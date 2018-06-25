@@ -9,9 +9,8 @@ import 'element-ui/lib/theme-chalk/index.css'
 
 import './assets/style/reset.css'
 import './assets/style/flex.css'
-// import 'flex.css'
-
 import utils from '@/global/utils'
+// import 'flex.css'
 
 Vue.use(utils)
 

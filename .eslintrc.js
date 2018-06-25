@@ -14,6 +14,7 @@ module.exports = {
   },
   plugins: ['html'],
   rules: {
+    'object-curly-spacing': ['error', 'always', { arraysInObjects: false }],
     // allow paren-less arrow functions
     'arrow-parens': 0,
     // allow async-await

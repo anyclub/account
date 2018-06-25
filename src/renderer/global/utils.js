@@ -19,11 +19,16 @@ const getMonthFirstDay = (year, month) => {
   return new Date(year, month, 1).getDay()
 }
 
+const copyObject = obj => {
+  return JSON.parse(JSON.stringify(obj))
+}
+
 export default {
   install (Vue) {
     Vue.prototype.$getMonthDays = getMonthDays
     Vue.prototype.$getMonthFirstDay = getMonthFirstDay
+    Vue.prototype.$copyObject = copyObject
   }
 }
 
-export { getMonthDays, getMonthFirstDay }
+export { getMonthDays, getMonthFirstDay, copyObject }
