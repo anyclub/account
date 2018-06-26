@@ -4,13 +4,15 @@ import App from './App'
 import router from './router'
 import store from './store'
 
+import utils from '@/global/utils'
+
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 
 import './assets/style/reset.css'
 import './assets/style/flex.css'
-import utils from '@/global/utils'
 // import 'flex.css'
+import './assets/style/base.css'
 
 Vue.use(utils)
 

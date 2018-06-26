@@ -22,4 +22,41 @@ const getDetailData = (year, month, day) => {
   })
 }
 
-export { getDetailData }
+const setDetailData = data => {
+  const { detail, year, month, day } = data
+
+  return new Promise((resolve, reject) => {
+    nedb.update({ year: year, month: month, day: day }, { $set: { detail } }, {}, function (
+      err,
+      numAffected
+    ) {
+      if (err) {
+        reject(new Error(err))
+      } else if (!numAffected) {
+        nedb.insert(data, function (err, newDoc) {
+          if (err) {
+            reject(new Error(err))
+          } else {
+            resolve(true)
+          }
+        })
+      } else {
+        resolve(true)
+      }
+    })
+  })
+}
+
+const getTotalByMonth = (year, month) => {
+  // todo
+}
+
+const API = {
+  getDetailData,
+  setDetailData,
+  getTotalByMonth
+}
+
+export { getDetailData, setDetailData, getTotalByMonth }
+
+export default API

@@ -274,12 +274,12 @@ th {
 /**
 * 单元格添加边框
 */
-table th,
+/* table th,
 table td {
   border: 1px solid #ddd;
   padding: 8px 10px;
 }
-
+ */
 /**
 * 表头底部边框
 */
