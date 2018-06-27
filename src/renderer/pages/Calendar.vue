@@ -22,54 +22,25 @@
         </div>
       </main>
     </div>
-    <el-dialog center class="dialog" :title="activeDate" :visible.sync="dialogVisible" width="90%" fullscreen>
-      <el-table fit show-summary :summary-method="getSummaries" v-loading="loading" width="100%" :data="dialogData">
-        <el-table-column type="selection" width="80" fixed="left" />
-        <el-table-column type="index" :index="1" width="40" />
-        <el-table-column prop="category" label="类别" min-width="120" align="center">
-          <template slot-scope="scope">
-            <el-select size="mini" v-model="scope.row.category">
-              <el-option v-for="item in selectOptions.category" :key="item.value" :label="item.label" :value="item.value"></el-option>
-            </el-select>
-          </template>
-        </el-table-column>
-        <el-table-column prop="name" label="名称" min-width="200">
-          <template slot-scope="scope">
-            <el-input size="small" placeholder="费用" v-model="scope.row.name">
-            </el-input>
-          </template>
-        </el-table-column>
-        <el-table-column prop="pay" label="已支付" min-width="120" align="center">
-          <template slot-scope="scope">
-            ￥:
-            <el-input size="small" class="input-cost" type="number" placeholder="费用" v-model="scope.row.pay">
-            </el-input>
-          </template>
-        </el-table-column>
-        <el-table-column prop="cost" label="总费用" min-width="120" align="center">
-          <template slot-scope="scope">
-            ￥:
-            <el-input size="small" class="input-cost" type="number" placeholder="费用" v-model="scope.row.cost">
-            </el-input>
-          </template>
-        </el-table-column>
-        <el-table-column prop="remark" label="备注" min-width="180">
-          <template slot-scope="scope">
-            <el-input type="textarea" />
-          </template>
-        </el-table-column>
-      </el-table>
+    <!-- <el-dialog class="dialog" :title="activeDate" :visible.sync="dialogVisible" width="96%" fullscreen>
+      <CostTable :data="dialogData" :loading="loading"></CostTable>
       <div class="footer" slot="footer">
         <el-button @click="dialogVisible=false">取消</el-button>
         <el-button type="primary" @click="save">保存</el-button>
       </div>
-    </el-dialog>
+    </el-dialog> -->
+    <MoveDialog :title="activeDate" :visible.sync="dialogVisible">
+      <CostTable :data="dialogData" :loading="loading"></CostTable>
+      <div class="footer" slot="footer">
+        <el-button @click="dialogVisible=false">取消</el-button>
+        <el-button type="primary" @click="save">保存</el-button>
+      </div>
+    </MoveDialog>
   </div>
 </template>
 
 <script>
 import API from '@/global/Api'
-import { selectOptions } from '@/global/selectOptions'
 
 export default {
   name: 'calendar',
@@ -84,8 +55,7 @@ export default {
       week: ['日', '一', '二', '三', '四', '五', '六'],
       dialogVisible: false,
       loading: true,
-      dialogData: [],
-      selectOptions
+      dialogData: []
     }
   },
   computed: {
@@ -149,31 +119,6 @@ export default {
       this.now = new Date(this.year, this.month - 1, 1)
       this.days = this.$getMonthDays(this.year, this.month)
       this.firstDay = this.$getMonthFirstDay(this.year, this.month - 1)
-    },
-    getSummaries (param) {
-      const { columns, data } = param
-      const sums = []
-      columns.forEach((column, index) => {
-        if (index === 0) {
-          sums[index] = '合计'
-          return
-        }
-        const values = data.map(item => Number(item[column.property]))
-        if (!values.every(value => isNaN(value))) {
-          sums[index] = values.reduce((prev, curr) => {
-            const value = Number(curr)
-            if (!isNaN(value)) {
-              return prev + curr
-            } else {
-              return prev
-            }
-          }, 0)
-          sums[index] += ' 元'
-        } else {
-          sums[index] = ''
-        }
-      })
-      return sums
     },
     async save () {
       const loading = this.$loading({
@@ -254,26 +199,12 @@ export default {
   }
 }
 .dialog {
+  height: 100%;
   /deep/ .el-dialog__header {
     background: #409eff;
     .el-dialog__title,
     .el-dialog__close {
       color: #fff;
-    }
-  }
-  .input-cost {
-    // display: inline-block;
-    display: inline;
-    /deep/ input {
-      border: 0;
-      border-bottom: 1px solid #ccc;
-      border-radius: 0;
-      width: 60px;
-      height: 20px;
-      padding: 0;
-      background: transparent;
-      color: #c00;
-      text-align: center;
     }
   }
 }

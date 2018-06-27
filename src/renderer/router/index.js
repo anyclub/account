@@ -8,12 +8,12 @@ export default new Router({
     {
       path: '/calendar',
       name: 'calendar',
-      component: require('@/components/Calendar').default
+      component: require('@/pages/Calendar').default
     },
     {
       path: '/',
       name: 'welcome',
-      component: require('@/components/Welcome').default
+      component: require('@/pages/Welcome').default
     },
     {
       path: '*',
