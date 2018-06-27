@@ -1,5 +1,5 @@
 {
-  "name": "account3",
+  "name": "account",
   "version": "0.0.0",
   "author": "anyclub <chenzhe@foreveross.com>",
   "description": "An electron-vue project",
@@ -19,7 +19,7 @@
     "postinstall": "npm run lint:fix"
   },
   "build": {
-    "productName": "account3",
+    "productName": "account",
     "appId": "org.simulatedgreg.electron-vue",
     "directories": {
       "output": "build"

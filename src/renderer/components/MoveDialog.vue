@@ -1,8 +1,8 @@
 <template>
   <transition name="dialog-fade">
     <div v-el-drag-dialog class="el-dialog__wrapper" v-show="visible">
-      <div flex="dir:top" class="el-dialog" :class="[{ 'is-fullscreen': fullscreen, 'el-dialog--center': center }, customClass]" ref="dialog" :style="style">
-        <div flex-box="0" class="el-dialog__header">
+      <div flex="dir:top box:justify" class="el-dialog" :class="[{ 'is-fullscreen': fullscreen, 'el-dialog--center': center }, customClass]" ref="dialog" :style="style">
+        <div class="el-dialog__header">
           <slot name="title">
             <span class="el-dialog__title">{{ title }}</span>
           </slot>
@@ -13,10 +13,10 @@
             <i class="el-dialog__close el-icon el-icon-close"></i>
           </button>
         </div>
-        <div flex-box="1" class="el-dialog__body" v-if="rendered">
+        <div class="el-dialog__body" v-if="rendered">
           <slot></slot>
         </div>
-        <div flex-box="0" flex="main:center" lass="el-dialog__footer" v-if="$slots.footer">
+        <div flex="main:center" lass="el-dialog__footer" v-if="$slots.footer">
           <slot name="footer"></slot>
         </div>
       </div>
@@ -84,7 +84,7 @@ export default {
 
     width: String,
 
-    defaultFullscreen: { type: Boolean, default: true },
+    defaultFullscreen: Boolean,
 
     customClass: {
       type: String,
@@ -97,7 +97,7 @@ export default {
     },
     top: {
       type: String,
-      default: '14vh'
+      default: '10vh'
     },
     beforeClose: Function,
     center: {
@@ -213,6 +213,7 @@ export default {
 <style lang="less" scoped>
 .el-dialog.is-fullscreen {
   width: 100% !important;
+  height: 100% !important;
 }
 .el-dialog__header {
   position: relative;
@@ -243,8 +244,12 @@ export default {
     }
   }
 }
+.el-dialog__body {
+  padding: 10px;
+}
 .el-dialog {
   margin: 0 auto;
+  height: 80vh;
   padding: 0 0 20px;
 }
 </style>

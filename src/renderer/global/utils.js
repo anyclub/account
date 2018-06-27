@@ -23,12 +23,21 @@ const copyObject = obj => {
   return JSON.parse(JSON.stringify(obj))
 }
 
+const getTotal = (arr, key = 'cost') => {
+  let result = 0
+  arr.forEach(item => {
+    result += Number(item[key])
+  })
+  return result
+}
+
 export default {
   install (Vue) {
     Vue.prototype.$getMonthDays = getMonthDays
     Vue.prototype.$getMonthFirstDay = getMonthFirstDay
     Vue.prototype.$copyObject = copyObject
+    Vue.prototype.$getTotal = getTotal
   }
 }
 
-export { getMonthDays, getMonthFirstDay, copyObject }
+export { getMonthDays, getMonthFirstDay, copyObject, getTotal }

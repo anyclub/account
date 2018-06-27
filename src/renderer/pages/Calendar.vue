@@ -14,22 +14,17 @@
           <span class="table-item" v-for="(day,index) in week" :key="index">{{day}}</span>
         </div>
         <div class="body" flex="box:mean" v-for="(week,index) in dateList" :key="index">
-          <el-button class="table-item" v-for="(day,index) in week" v-if="day.num" :key="index" @click="getDetail(day.num)">
-            <div class="day">{{day.num}}</div>
-            <div class="cost">￥{{day.cost}}</div>
+          <el-button class="table-item" v-for="(day,index) in week" v-if="day" :key="index" @click="getDetail(day)">
+            <div class="day">{{day}}</div>
+            <div v-if="getValue(costList,day)" class="list">{{getValue(costList,day)}}项</div>
+            <div v-if="getValue(costList,day,'total')" class="cost">￥{{getValue(costList,day,'total')}}</div>
           </el-button>
           <span v-else class="table-item empty"></span>
         </div>
       </main>
     </div>
-    <!-- <el-dialog class="dialog" :title="activeDate" :visible.sync="dialogVisible" width="96%" fullscreen>
-      <CostTable :data="dialogData" :loading="loading"></CostTable>
-      <div class="footer" slot="footer">
-        <el-button @click="dialogVisible=false">取消</el-button>
-        <el-button type="primary" @click="save">保存</el-button>
-      </div>
-    </el-dialog> -->
-    <MoveDialog :title="activeDate" :visible.sync="dialogVisible">
+
+    <MoveDialog :title="activeDate" :visible.sync="dialogVisible" width="80%">
       <CostTable :data="dialogData" :loading="loading"></CostTable>
       <div class="footer" slot="footer">
         <el-button @click="dialogVisible=false">取消</el-button>
@@ -49,13 +44,14 @@ export default {
       year: null,
       month: null,
       day: null,
-      now: new Date(),
+      // now: new Date(),
       days: null,
       firstDay: null,
       week: ['日', '一', '二', '三', '四', '五', '六'],
       dialogVisible: false,
       loading: true,
-      dialogData: []
+      dialogData: [],
+      costList: []
     }
   },
   computed: {
@@ -75,7 +71,7 @@ export default {
           } else {
             day += ''
           }
-          week[dayIndex] = { num: day, cost: '13' }
+          week[dayIndex] = day
         }
         result[weekIndex] = week
       }
@@ -83,13 +79,13 @@ export default {
     },
     activeDate () {
       return `${this.year}年${this.month}月${this.day}日`
+    },
+    now () {
+      return new Date(this.year, this.month - 1, 1)
     }
   },
   watch: {
-    year () {
-      this.setCalendar()
-    },
-    month () {
+    now () {
       this.setCalendar()
     }
   },
@@ -111,14 +107,24 @@ export default {
       }
     },
     initDate () {
-      this.now = new Date()
-      this.year = this.now.getFullYear()
-      this.month = this.now.getMonth() + 1
+      const now = new Date()
+      this.year = now.getFullYear()
+      this.month = now.getMonth() + 1
     },
-    setCalendar () {
-      this.now = new Date(this.year, this.month - 1, 1)
+    async setCalendar () {
+      const loading = this.$loading({
+        lock: true,
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      })
       this.days = this.$getMonthDays(this.year, this.month)
       this.firstDay = this.$getMonthFirstDay(this.year, this.month - 1)
+      const data = await API.getTotalByMonth(String(this.year), String(this.month))
+
+      this.costList = data
+      this.$nextTick(() => {
+        loading.close()
+      })
     },
     async save () {
       const loading = this.$loading({
@@ -131,19 +137,24 @@ export default {
         year: String(this.year),
         month: String(this.month),
         day: String(this.day),
-        total: () => {
-          let result = 0
-          this.dialogData.forEach(item => {
-            result += Number(item.cost)
-          })
-          return result
-        }
+        total: this.$getTotal(this.dialogData),
+        listLength: this.dialogData.length
       }
+
       let flag = await API.setDetailData(data)
       if (flag) {
         this.dialogVisible = false
         loading.close()
       }
+    },
+    getValue (list, value, valueKey = 'listLength', key = 'day', defaultValue = false) {
+      for (let index = 0; index < list.length; index++) {
+        const element = list[index]
+        if (element[key] === value) {
+          return element[valueKey]
+        }
+      }
+      return defaultValue
     }
   },
   created () {
@@ -184,27 +195,24 @@ export default {
     text-align: left;
     &:first-child,
     &:last-child {
-      color: #c00;
+      color: #f56c6c;
     }
     &.empty {
       padding: 14px 22px;
     }
+    .list,
     .cost {
       position: absolute;
       right: 4%;
-      bottom: 4%;
       font-size: 1.5vw;
-      color: #c00;
     }
-  }
-}
-.dialog {
-  height: 100%;
-  /deep/ .el-dialog__header {
-    background: #409eff;
-    .el-dialog__title,
-    .el-dialog__close {
-      color: #fff;
+    .cost {
+      bottom: 4%;
+      color: #f56c6c;
+    }
+    .list {
+      top: 5%;
+      color: #303133;
     }
   }
 }

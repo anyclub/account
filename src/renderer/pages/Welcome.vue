@@ -23,7 +23,7 @@ export default {
 .link {
   font-size: 24px;
   text-align: center;
-  color: #333;
+  color: #303133;
   text-decoration: none;
 }
 </style>
