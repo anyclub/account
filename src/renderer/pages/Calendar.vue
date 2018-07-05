@@ -35,11 +35,11 @@
 </template>
 
 <script>
-import API from '@/global/Api'
+import API from "@/global/Api";
 
 export default {
-  name: 'calendar',
-  data () {
+  name: "calendar",
+  data() {
     return {
       year: null,
       month: null,
@@ -47,91 +47,91 @@ export default {
       // now: new Date(),
       days: null,
       firstDay: null,
-      week: ['日', '一', '二', '三', '四', '五', '六'],
+      week: ["日", "一", "二", "三", "四", "五", "六"],
       dialogVisible: false,
       loading: true,
       dialogData: [],
       costList: []
-    }
+    };
   },
   computed: {
-    dateList () {
-      const length = Math.ceil((this.firstDay + this.days) / 7)
-      let result = []
+    dateList() {
+      const length = Math.ceil((this.firstDay + this.days) / 7);
+      let result = [];
       for (let weekIndex = 0; weekIndex < length; weekIndex++) {
-        let week = []
+        let week = [];
         for (let dayIndex = 0; dayIndex < 7; dayIndex++) {
-          let day = 7 * weekIndex + dayIndex - this.firstDay + 1
+          let day = 7 * weekIndex + dayIndex - this.firstDay + 1;
           if (day < 1) {
-            day = ''
+            day = "";
           } else if (day > this.days) {
-            day = ''
+            day = "";
           } else if (day > 0 && day < 10) {
-            day = '0' + day
+            day = "0" + day;
           } else {
-            day += ''
+            day += "";
           }
-          week[dayIndex] = day
+          week[dayIndex] = day;
         }
-        result[weekIndex] = week
+        result[weekIndex] = week;
       }
-      return result
+      return result;
     },
-    activeDate () {
-      return `${this.year}年${this.month}月${this.day}日`
+    activeDate() {
+      return `${this.year}年${this.month}月${this.day}日`;
     },
-    now () {
-      return new Date(this.year, this.month - 1, 1)
+    now() {
+      return new Date(this.year, this.month - 1, 1);
     }
   },
   watch: {
-    now () {
-      this.setCalendar()
+    now() {
+      this.setCalendar();
     }
   },
   methods: {
-    async getDetail (day) {
-      this.loading = true
-      this.day = day
-      this.dialogVisible = true
+    async getDetail(day) {
+      this.loading = true;
+      this.day = day;
+      this.dialogVisible = true;
 
-      let result = await API.getDetailData(String(this.year), String(this.month), day)
-      this.dialogData = result
-      this.loading = false
+      let result = await API.getDetailData(String(this.year), String(this.month), day);
+      this.dialogData = result;
+      this.loading = false;
     },
-    changeDate (type, method) {
-      if (method === 'plus') {
-        this[type] = this[type] + 1
+    changeDate(type, method) {
+      if (method === "plus") {
+        this[type] = this[type] + 1;
       } else {
-        this[type] = this[type] - 1
+        this[type] = this[type] - 1;
       }
     },
-    initDate () {
-      const now = new Date()
-      this.year = now.getFullYear()
-      this.month = now.getMonth() + 1
+    initDate() {
+      const now = new Date();
+      this.year = now.getFullYear();
+      this.month = now.getMonth() + 1;
     },
-    async setCalendar () {
+    async setCalendar() {
       const loading = this.$loading({
         lock: true,
-        spinner: 'el-icon-loading',
-        background: 'rgba(0, 0, 0, 0.7)'
-      })
-      this.days = this.$getMonthDays(this.year, this.month)
-      this.firstDay = this.$getMonthFirstDay(this.year, this.month - 1)
-      const data = await API.getTotalByMonth(String(this.year), String(this.month))
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
+      this.days = this.$getMonthDays(this.year, this.month);
+      this.firstDay = this.$getMonthFirstDay(this.year, this.month - 1);
+      const data = await API.getTotalByMonth(String(this.year), String(this.month));
 
-      this.costList = data
+      this.costList = data;
       this.$nextTick(() => {
-        loading.close()
-      })
+        loading.close();
+      });
     },
-    async save () {
+    async save() {
       const loading = this.$loading({
         lock: true,
-        spinner: 'el-icon-loading',
-        background: 'rgba(0, 0, 0, 0.7)'
-      })
+        spinner: "el-icon-loading",
+        background: "rgba(0, 0, 0, 0.7)"
+      });
       const data = {
         detail: this.dialogData,
         year: String(this.year),
@@ -139,28 +139,28 @@ export default {
         day: String(this.day),
         total: this.$getTotal(this.dialogData),
         listLength: this.dialogData.length
-      }
+      };
 
-      let flag = await API.setDetailData(data)
+      let flag = await API.setDetailData(data);
       if (flag) {
-        this.dialogVisible = false
-        loading.close()
+        this.dialogVisible = false;
+        loading.close();
       }
     },
-    getValue (list, value, valueKey = 'listLength', key = 'day', defaultValue = false) {
+    getValue(list, value, valueKey = "listLength", key = "day", defaultValue = false) {
       for (let index = 0; index < list.length; index++) {
-        const element = list[index]
+        const element = list[index];
         if (element[key] === value) {
-          return element[valueKey]
+          return element[valueKey];
         }
       }
-      return defaultValue
+      return defaultValue;
     }
   },
-  created () {
-    this.initDate()
+  created() {
+    this.initDate();
   }
-}
+};
 </script>
 
 <style lang="less" scoped>
