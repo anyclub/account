@@ -72,7 +72,7 @@ const getTotalByMonth = (year, month) => {
 
 const getTotalByType = type => {
   return new Promise((resolve, reject) => {
-    nedb.find({ listLength: { $exists: true } }).exec(function (err, doc) {
+    nedb.find({ listLength: { $gt: 0 } }).exec(function (err, doc) {
       if (err) {
         Notification.error({
           title: '错误',
@@ -80,7 +80,17 @@ const getTotalByType = type => {
         })
         reject(new Error(err))
       } else if (doc) {
-        resolve(doc)
+        let result = []
+        doc.forEach(dataItem => {
+          const date = {
+            date: `${dataItem.year}年${dataItem.month}月${dataItem.day}日`
+          }
+          const { detail } = dataItem
+          detail.forEach(element => {
+            result.push(Object.assign(element, date))
+          })
+        })
+        resolve(result)
       } else if (!doc) {
         resolve([])
       }
