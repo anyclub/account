@@ -1,7 +1,9 @@
 <!-- Created by anyc on 2018-06-21. 欢迎页 -->
 <template>
   <div class="wrapper" flex="cross:center main:center">
-    <router-link class="link" to="/calendar">专享--装修记账</router-link>
+    <h2>专享--装修记账</h2>
+    <router-link class="link" to="/calendar">按日历查看</router-link>
+    <router-link class="link" to="/calendar">按类别查看</router-link>
   </div>
 </template>
 
