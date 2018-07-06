@@ -1,6 +1,6 @@
 # 用于自家装修记账使用
 
-> An electron-vue project
+> 一个方便记录,查看装修费用的软件
 
 #### Build Setup
 
