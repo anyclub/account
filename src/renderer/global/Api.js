@@ -70,12 +70,31 @@ const getTotalByMonth = (year, month) => {
   })
 }
 
+const getTotalByType = type => {
+  return new Promise((resolve, reject) => {
+    nedb.find({ listLength: { $exists: true } }).exec(function (err, doc) {
+      if (err) {
+        Notification.error({
+          title: '错误',
+          message: '数据读取有误!'
+        })
+        reject(new Error(err))
+      } else if (doc) {
+        resolve(doc)
+      } else if (!doc) {
+        resolve([])
+      }
+    })
+  })
+}
+
 const API = {
   getDetailData,
   setDetailData,
-  getTotalByMonth
+  getTotalByMonth,
+  getTotalByType
 }
 
-export { getDetailData, setDetailData, getTotalByMonth }
+export { getDetailData, setDetailData, getTotalByMonth, getTotalByType }
 
 export default API

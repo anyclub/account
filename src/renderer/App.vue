@@ -13,10 +13,14 @@
 
 <style>
 html,
-body,
+body {
+  width: 100%;
+  height: 100%;
+}
 #app {
   width: 100%;
   height: 100%;
+  padding: 10px;
 }
 .el-dialog__wrapper {
   overflow: hidden;

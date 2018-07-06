@@ -11,6 +11,11 @@ export default new Router({
       component: require('@/pages/Calendar').default
     },
     {
+      path: '/tableList',
+      name: 'tableList',
+      component: require('@/pages/TableList').default
+    },
+    {
       path: '/',
       name: 'welcome',
       component: require('@/pages/Welcome').default
