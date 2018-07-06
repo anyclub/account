@@ -1,10 +1,10 @@
-# test
+# 用于自家装修记账使用
 
 > An electron-vue project
 
 #### Build Setup
 
-``` bash
+```bash
 # install dependencies
 npm install
 
@@ -17,7 +17,6 @@ npm run build
 
 # lint all JS/Vue component files in `src/`
 npm run lint
-
 ```
 
 ---
