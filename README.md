@@ -1,6 +1,6 @@
-# five
+# test
 
-> vue electron five 
+> An electron-vue project
 
 #### Build Setup
 
@@ -14,6 +14,9 @@ npm run dev
 # build electron application for production
 npm run build
 
+
+# lint all JS/Vue component files in `src/`
+npm run lint
 
 ```
 
