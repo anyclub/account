@@ -1,6 +1,7 @@
 <template>
-  <div id="app" flex>
-    <router-view></router-view>
+  <div id="app" flex="dir:top box:first">
+    <myHeader></myHeader>
+    <router-view class="main"></router-view>
   </div>
 </template>
 
@@ -16,6 +17,8 @@ body,
 #app {
   width: 100%;
   height: 100%;
-  /* overflow: hidden; */
+}
+.el-dialog__wrapper {
+  overflow: hidden;
 }
 </style>

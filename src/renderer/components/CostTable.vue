@@ -55,7 +55,8 @@ export default {
   },
   data () {
     return {
-      selectOptions
+      selectOptions,
+      selectList: []
     }
   },
   methods: {
@@ -92,7 +93,7 @@ export default {
       })
     },
     delList () {
-      console.log('del')
+      this.data = this.$deleteArrByIndex(this.selectList, this.data)
     },
     tableSelect (list) {
       let result = []
@@ -105,7 +106,7 @@ export default {
           }
         }
       })
-      console.log(result)
+      this.selectList = result
     }
   }
 }

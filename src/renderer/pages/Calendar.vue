@@ -25,7 +25,7 @@
     </div>
 
     <MoveDialog :title="activeDate" :visible.sync="dialogVisible" width="80%">
-      <CostTable :data="dialogData" :loading="loading"></CostTable>
+      <CostTable :data.sync="dialogData" :loading="loading"></CostTable>
       <div class="footer" slot="footer">
         <el-button @click="dialogVisible=false">取消</el-button>
         <el-button type="primary" @click="save">保存</el-button>
@@ -44,7 +44,7 @@ export default {
       year: null,
       month: null,
       day: null,
-      // now: new Date(),
+      now: new Date(),
       days: null,
       firstDay: null,
       week: ['日', '一', '二', '三', '四', '五', '六'],
@@ -79,13 +79,16 @@ export default {
     },
     activeDate () {
       return `${this.year}年${this.month}月${this.day}日`
-    },
-    now () {
-      return new Date(this.year, this.month - 1, 1)
     }
+    // now () {
+    //   return new Date(this.year, this.month - 1, 1)
+    // }
   },
   watch: {
     now () {
+      this.year = this.now.getFullYear()
+      this.month = this.now.getMonth() + 1
+
       this.setCalendar()
     }
   },
@@ -105,11 +108,10 @@ export default {
       } else {
         this[type] = this[type] - 1
       }
+      this.now = new Date(this.year, this.month - 1, 1)
     },
     initDate () {
-      const now = new Date()
-      this.year = now.getFullYear()
-      this.month = now.getMonth() + 1
+      this.now = new Date()
     },
     async setCalendar () {
       const loading = this.$loading({
@@ -167,7 +169,6 @@ export default {
 <style lang="less" scoped>
 .calendar-wrap {
   width: 100%;
-  height: 100%;
 }
 .calendar {
   width: 100%;

@@ -1,3 +1,5 @@
+import { MessageBox } from 'element-ui'
+
 const getMonthDays = (year, month) => {
   const bigMonth = [1, 3, 5, 7, 8, 10, 12]
   const smallMonth = [4, 6, 9, 11]
@@ -31,13 +33,31 @@ const getTotal = (arr, key = 'cost') => {
   return result
 }
 
+const codingMsg = () => {
+  MessageBox({
+    message: '此功能开发中......',
+    type: 'error'
+  })
+}
+
+const deleteArrByIndex = (indexArr, arr) => {
+  for (let index = arr.length - 1; index >= 0; index--) {
+    if (indexArr.includes(index)) {
+      arr.splice(index, 1)
+    }
+  }
+  return arr
+}
+
 export default {
   install (Vue) {
     Vue.prototype.$getMonthDays = getMonthDays
     Vue.prototype.$getMonthFirstDay = getMonthFirstDay
     Vue.prototype.$copyObject = copyObject
     Vue.prototype.$getTotal = getTotal
+    Vue.prototype.$codingMsg = codingMsg
+    Vue.prototype.$deleteArrByIndex = deleteArrByIndex
   }
 }
 
-export { getMonthDays, getMonthFirstDay, copyObject, getTotal }
+export { getMonthDays, getMonthFirstDay, copyObject, getTotal, codingMsg, deleteArrByIndex }
