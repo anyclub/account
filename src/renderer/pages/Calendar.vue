@@ -143,6 +143,7 @@ export default {
 
       let flag = await API.setDetailData(data)
       if (flag) {
+        this.setCalendar()
         this.dialogVisible = false
         loading.close()
       }
