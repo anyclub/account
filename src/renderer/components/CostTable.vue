@@ -1,41 +1,87 @@
 <!-- Created by anyc on 2018-06-27. 花费的表格 -->
 <template>
-  <div class="CostTable" flex="dir:top box:first">
+  <div class="CostTable"
+    flex="dir:top box:first">
     <div style="margin-bottom:10px">
-      <el-button type="primary" icon="el-icon-plus" size="small" @click="addNew">添加</el-button>
-      <el-button type="warning" icon="el-icon-delete" size="small" @click="delList">删除</el-button>
+      <el-button type="primary"
+        icon="el-icon-plus"
+        size="small"
+        @click="addNew">添加</el-button>
+      <el-button type="warning"
+        icon="el-icon-delete"
+        size="small"
+        @click="delList">删除</el-button>
     </div>
-    <el-table fit show-summary border :summary-method="getSummaries" v-loading="loading" width="100%" height="100%" :data="data" @selection-change="tableSelect">
-      <el-table-column type="selection" width="40" fixed="left" />
-      <el-table-column type="index" :index="1" width="40" />
-      <el-table-column prop="category" label="类别" min-width="120" align="center">
+    <el-table fit
+      show-summary
+      border
+      :summary-method="getSummaries"
+      v-loading="loading"
+      width="100%"
+      height="100%"
+      :data="data"
+      @selection-change="tableSelect">
+      <el-table-column type="selection"
+        width="40"
+        fixed="left" />
+      <el-table-column type="index"
+        :index="1"
+        width="40" />
+      <el-table-column prop="category"
+        label="类别"
+        min-width="120"
+        align="center">
         <template slot-scope="scope">
-          <el-select size="mini" v-model="scope.row.category">
-            <el-option v-for="item in selectOptions.category" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          <el-select size="mini"
+            v-model="scope.row.category">
+            <el-option v-for="item in selectOptions.category"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"></el-option>
           </el-select>
         </template>
       </el-table-column>
-      <el-table-column prop="name" label="名称" min-width="200">
+      <el-table-column prop="name"
+        label="名称"
+        min-width="200">
         <template slot-scope="scope">
-          <el-input size="small" placeholder="名称" v-model="scope.row.name">
+          <el-input size="small"
+            placeholder="名称"
+            v-model="scope.row.name">
           </el-input>
         </template>
       </el-table-column>
-      <el-table-column prop="pay" label="已支付" min-width="120" align="center">
+      <el-table-column prop="pay"
+        label="已支付"
+        min-width="120"
+        align="center">
         <template slot-scope="scope">
           ￥:
-          <el-input size="small" class="input-cost" type="number" placeholder="费用" v-model="scope.row.pay">
+          <el-input size="small"
+            class="input-cost"
+            type="number"
+            placeholder="费用"
+            v-model="scope.row.pay">
           </el-input>
         </template>
       </el-table-column>
-      <el-table-column prop="cost" label="总费用" min-width="120" align="center">
+      <el-table-column prop="cost"
+        label="总费用"
+        min-width="120"
+        align="center">
         <template slot-scope="scope">
           ￥:
-          <el-input size="small" class="input-cost" type="number" placeholder="费用" v-model="scope.row.cost">
+          <el-input size="small"
+            class="input-cost"
+            type="number"
+            placeholder="费用"
+            v-model="scope.row.cost">
           </el-input>
         </template>
       </el-table-column>
-      <el-table-column prop="remark" label="备注" min-width="180">
+      <el-table-column prop="remark"
+        label="备注"
+        min-width="180">
         <template slot-scope="scope">
           <el-input type="textarea" />
         </template>

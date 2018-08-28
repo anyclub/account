@@ -1,34 +1,74 @@
 <!-- Created by anyc on 2018-06-21. 日历组件 -->
 <template>
   <div class="calendar-wrap">
-    <div class="calendar" flex="dir:top box:first cross:stretch">
+    <div class="calendar"
+      flex="dir:top box:first cross:stretch">
       <header flex="main:justify cross:top">
-        <el-button flex-box="1" class="item" icon="el-icon-d-arrow-left" plain @click="changeDate('year','sub')"></el-button>
-        <el-button flex-box="1" class="item" icon="el-icon-arrow-left" plain @click="changeDate('month','sub')"></el-button>
-        <el-date-picker flex-box="3" class="item" v-model="now" type="month" format="yyyy年MM月" />
-        <el-button flex-box="1" class="item" icon="el-icon-arrow-right" plain @click="changeDate('month','plus')"></el-button>
-        <el-button flex-box="1" class="item" icon="el-icon-d-arrow-right" plain @click="changeDate('year','plus')"></el-button>
+        <el-button flex-box="1"
+          class="item"
+          icon="el-icon-d-arrow-left"
+          plain
+          @click="changeDate('year','sub')"></el-button>
+        <el-button flex-box="1"
+          class="item"
+          icon="el-icon-arrow-left"
+          plain
+          @click="changeDate('month','sub')"></el-button>
+        <el-date-picker flex-box="3"
+          class="item"
+          v-model="now"
+          type="month"
+          format="yyyy年MM月" />
+        <el-button flex-box="1"
+          class="item"
+          icon="el-icon-arrow-right"
+          plain
+          @click="changeDate('month','plus')"></el-button>
+        <el-button flex-box="1"
+          class="item"
+          icon="el-icon-d-arrow-right"
+          plain
+          @click="changeDate('year','plus')"></el-button>
       </header>
-      <main class="main" flex="dir:top box:first">
-        <div class="table-header" flex="box:mean">
-          <span class="table-item" v-for="(day,index) in week" :key="index">{{day}}</span>
+      <main class="main"
+        flex="dir:top box:first">
+        <div class="table-header"
+          flex="box:mean">
+          <span class="table-item"
+            v-for="(day,index) in week"
+            :key="index">{{day}}</span>
         </div>
-        <div class="body" flex="box:mean" v-for="(week,index) in dateList" :key="index">
-          <el-button class="table-item" v-for="(day,index) in week" v-if="day" :key="index" @click="getDetail(day)">
+        <div class="body"
+          flex="box:mean"
+          v-for="(week,index) in dateList"
+          :key="index">
+          <el-button class="table-item"
+            v-for="(day,index) in week"
+            v-if="day"
+            :key="index"
+            @click="getDetail(day)">
             <div class="day">{{day}}</div>
-            <div v-if="getValue(costList,day)" class="list">{{getValue(costList,day)}}项</div>
-            <div v-if="getValue(costList,day,'total')" class="cost">￥{{getValue(costList,day,'total')}}</div>
+            <div v-if="getValue(costList,day)"
+              class="list">{{getValue(costList,day)}}项</div>
+            <div v-if="getValue(costList,day,'total')"
+              class="cost">￥{{getValue(costList,day,'total')}}</div>
           </el-button>
-          <span v-else class="table-item empty"></span>
+          <span v-else
+            class="table-item empty"></span>
         </div>
       </main>
     </div>
 
-    <MoveDialog :title="activeDate" :visible.sync="dialogVisible" width="80%">
-      <CostTable :data.sync="dialogData" :loading="loading"></CostTable>
-      <div class="footer" slot="footer">
+    <MoveDialog :title="activeDate"
+      :visible.sync="dialogVisible"
+      width="80%">
+      <CostTable :data.sync="dialogData"
+        :loading="loading"></CostTable>
+      <div class="footer"
+        slot="footer">
         <el-button @click="dialogVisible=false">取消</el-button>
-        <el-button type="primary" @click="save">保存</el-button>
+        <el-button type="primary"
+          @click="save">保存</el-button>
       </div>
     </MoveDialog>
   </div>

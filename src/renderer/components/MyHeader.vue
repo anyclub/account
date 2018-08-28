@@ -1,11 +1,16 @@
 <!-- Created by anyc on 2018-07-06. 头部 -->
 <template>
   <div class="myHeader">
-    <el-button size="mini" @click="$router.push('/')">首页</el-button>
-    <el-button size="mini" @click="$codingMsg">导出数据</el-button>
-    <el-button size="mini" @click="$codingMsg">导入数据</el-button>
-    <el-button size="mini" @click="$codingMsg">查看报表</el-button>
-    <el-button size="mini" @click="$codingMsg">查看花费</el-button>
+    <el-button size="mini"
+      @click="$router.push('/')">首页</el-button>
+    <el-button size="mini"
+      @click="$codingMsg">导出数据</el-button>
+    <el-button size="mini"
+      @click="$codingMsg">导入数据</el-button>
+    <el-button size="mini"
+      @click="$codingMsg">查看报表</el-button>
+    <el-button size="mini"
+      @click="$codingMsg">查看花费</el-button>
   </div>
 </template>
 

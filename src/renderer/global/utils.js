@@ -1,4 +1,4 @@
-import { MessageBox } from 'element-ui'
+import { Notification } from 'element-ui'
 
 const getMonthDays = (year, month) => {
   const bigMonth = [1, 3, 5, 7, 8, 10, 12]
@@ -34,9 +34,10 @@ const getTotal = (arr, key = 'cost') => {
 }
 
 const codingMsg = () => {
-  MessageBox({
+  Notification({
     message: '此功能开发中......',
-    type: 'error'
+    type: 'error',
+    duration: '1000'
   })
 }
 
@@ -60,4 +61,11 @@ export default {
   }
 }
 
-export { getMonthDays, getMonthFirstDay, copyObject, getTotal, codingMsg, deleteArrByIndex }
+export {
+  getMonthDays,
+  getMonthFirstDay,
+  copyObject,
+  getTotal,
+  codingMsg,
+  deleteArrByIndex
+}

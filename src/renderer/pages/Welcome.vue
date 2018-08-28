@@ -1,10 +1,13 @@
 <!-- Created by anyc on 2018-06-21. 欢迎页 -->
 <template>
-  <div class="wrapper" flex="cross:center main:center dir:top">
+  <div class="wrapper"
+    flex="cross:center main:center dir:top">
     <h2>装修记账--专享版</h2>
     <div class="wrap-link">
-      <router-link class="link" to="/calendar">按日历查看</router-link>
-      <router-link class="link" to="/tableList">按类别查看</router-link>
+      <router-link class="link"
+        to="/calendar">按日历查看</router-link>
+      <router-link class="link"
+        to="/tableList">按类别查看</router-link>
     </div>
   </div>
 </template>

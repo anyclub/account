@@ -1,22 +1,37 @@
 <template>
   <transition name="dialog-fade">
-    <div v-el-drag-dialog class="el-dialog__wrapper" v-show="visible">
-      <div flex="dir:top box:justify" class="el-dialog" :class="[{ 'is-fullscreen': fullscreen, 'el-dialog--center': center }, customClass]" ref="dialog" :style="style">
+    <div v-el-drag-dialog
+      class="el-dialog__wrapper"
+      v-show="visible">
+      <div flex="dir:top box:justify"
+        class="el-dialog"
+        :class="[{ 'is-fullscreen': fullscreen, 'el-dialog--center': center }, customClass]"
+        ref="dialog"
+        :style="style">
         <div class="el-dialog__header">
           <slot name="title">
             <span class="el-dialog__title">{{ title }}</span>
           </slot>
-          <button type="button" aria-label="Max" @click="maxDialog" class="button btn-max">
+          <button type="button"
+            aria-label="Max"
+            @click="maxDialog"
+            class="button btn-max">
             <i class="iconfont icon-max"></i>
           </button>
-          <button type="button" class="button btn-close" aria-label="Close" @click="handleClose">
+          <button type="button"
+            class="button btn-close"
+            aria-label="Close"
+            @click="handleClose">
             <i class="el-dialog__close el-icon el-icon-close"></i>
           </button>
         </div>
-        <div class="el-dialog__body" v-if="rendered">
+        <div class="el-dialog__body"
+          v-if="rendered">
           <slot></slot>
         </div>
-        <div flex="main:center" lass="el-dialog__footer" v-if="$slots.footer">
+        <div flex="main:center"
+          lass="el-dialog__footer"
+          v-if="$slots.footer">
           <slot name="footer"></slot>
         </div>
       </div>
